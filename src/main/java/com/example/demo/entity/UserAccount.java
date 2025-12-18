@@ -1,4 +1,3 @@
--- Active: 1766068034533@@127.0.0.1@3306
 package com.example.demo.entity;
 
 import com.example.demo.entity.enums.RoleType;
