@@ -1,3 +1,4 @@
+-- Active: 1766068034533@@127.0.0.1@3306
 package com.example.demo.entity;
 
 import com.example.demo.entity.enums.RoleType;
@@ -59,10 +60,6 @@ public class UserAccount {
         this.email = email;
     }
 
-    /**
-     * IMPORTANT:
-     * Password MUST already be hashed before calling this setter.
-     */
     public String getPassword() {
         return password;
     }
