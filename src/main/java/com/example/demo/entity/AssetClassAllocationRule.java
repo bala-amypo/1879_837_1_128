@@ -1,16 +1,17 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import com.example.demo.entity.enums.AssetClassType;
 
 @Entity
-@Table(name = "allocation_rules")
+@Table(name = "asset_class_allocation_rules")
 public class AssetClassAllocationRule {
 
     @Id
@@ -26,50 +27,5 @@ public class AssetClassAllocationRule {
 
     private Boolean active = true;
 
-    // ---------- Getters ----------
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public Double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    // ---------- Setters ----------
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
-        this.assetClass = assetClass;
-    }
-
-    public void setTargetPercentage(Double targetPercentage) {
-        if (targetPercentage == null || targetPercentage < 0 || targetPercentage > 100) {
-            throw new IllegalArgumentException("targetPercentage must be between 0 and 100");
-        }
-        this.targetPercentage = targetPercentage;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+    // getters and setters
 }
