@@ -27,5 +27,47 @@ public class AssetClassAllocationRule {
 
     private Boolean active = true;
 
-    // getters and setters
+    // ---------- GETTERS ----------
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getInvestorId() {
+        return investorId;
+    }
+
+    public AssetClassType getAssetClass() {
+        return assetClass;
+    }
+
+    public Double getTargetPercentage() {
+        return targetPercentage;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    // ---------- SETTERS ----------
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    public void setAssetClass(AssetClassType assetClass) {
+        this.assetClass = assetClass;
+    }
+
+    public void setTargetPercentage(Double targetPercentage) {
+        this.targetPercentage = targetPercentage;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
