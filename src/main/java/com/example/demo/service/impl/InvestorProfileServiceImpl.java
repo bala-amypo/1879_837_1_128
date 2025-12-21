@@ -23,3 +23,15 @@ public class InvestorProfileServiceImpl implements InvestorProfileService {
         return repository.save(investor);
     }
 
+    @Override
+    public InvestorProfile getInvestorById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Investor not found"));
+    }
+
+    @Override
+    public List<InvestorProfile> getAllInvestors() {
+        return repository.findAll();
+    }
+}
