@@ -1,13 +1,24 @@
 package com.example.demo.entity;
 
 import com.example.demo.entity.enums.RoleType;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
-@Table(name = "user_accounts", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"username"}),
-    @UniqueConstraint(columnNames = {"email"})
-})
+@Table(
+    name = "user_accounts",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+    }
+)
 public class UserAccount {
 
     @Id
@@ -18,12 +29,68 @@ public class UserAccount {
 
     private String email;
 
-    private String password; // must be hashed
+    /**
+     * Must always be stored as a hash (e.g., BCrypt).
+     */
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
     private Boolean active = true;
 
-    // getters and setters
+    // ---------- Getters ----------
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    // ---------- Setters ----------
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Service layer must ensure this value is already hashed.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
