@@ -1,15 +1,13 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Column;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "allocation_snapshots")
@@ -19,36 +17,23 @@ public class AllocationSnapshotRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long investorId;
 
-    @Column(nullable = false)
-    private LocalDateTime snapshotDate;
+    private LocalDateTime snapshotDate = LocalDateTime.now();
 
-    @Column(nullable = false)
     private Double totalPortfolioValue;
 
     @Lob
-    @Column(nullable = false)
     private String allocationJson;
 
-    // Automatically set snapshot date before insert
-    @PrePersist
-    protected void onCreate() {
-        this.snapshotDate = LocalDateTime.now();
-    }
+    // ---------- GETTERS ----------
 
-    // Getter & Setter
     public Long getId() {
         return id;
     }
 
     public Long getInvestorId() {
         return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
     }
 
     public LocalDateTime getSnapshotDate() {
@@ -59,15 +44,29 @@ public class AllocationSnapshotRecord {
         return totalPortfolioValue;
     }
 
-    public void setTotalPortfolioValue(Double totalPortfolioValue) {
-        if (totalPortfolioValue == null || totalPortfolioValue <= 0) {
-            throw new IllegalArgumentException("totalPortfolioValue must be > 0");
-        }
-        this.totalPortfolioValue = totalPortfolioValue;
-    }
-
     public String getAllocationJson() {
         return allocationJson;
+    }
+
+    // ---------- SETTERS ----------
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    public void setSnapshotDate(LocalDateTime snapshotDate) {
+        this.snapshotDate = snapshotDate;
+    }
+
+    public void setTotalPortfolioValue(Double totalPortfolioValue) {
+        if (totalPortfolioValue <= 0) {
+            throw new IllegalArgumentException("must be > 0");
+        }
+        this.totalPortfolioValue = totalPortfolioValue;
     }
 
     public void setAllocationJson(String allocationJson) {
