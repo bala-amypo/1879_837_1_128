@@ -2,15 +2,15 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
-import com.example.demo.entity.enums.AssetClassType;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import com.example.demo.entity.enums.AssetClassType;
 
 @Entity
 @Table(name = "holding_records")
@@ -27,9 +27,9 @@ public class HoldingRecord {
 
     private Double currentValue;
 
-    private LocalDateTime snapshotDate;
+    private LocalDateTime snapshotDate = LocalDateTime.now();
 
-    // ---------- Getters ----------
+    // ---------- GETTERS ----------
 
     public Long getId() {
         return id;
@@ -51,7 +51,7 @@ public class HoldingRecord {
         return snapshotDate;
     }
 
-    // ---------- Setters ----------
+    // ---------- SETTERS ----------
 
     public void setId(Long id) {
         this.id = id;
@@ -66,8 +66,8 @@ public class HoldingRecord {
     }
 
     public void setCurrentValue(Double currentValue) {
-        if (currentValue == null || currentValue <= 0) {
-            throw new IllegalArgumentException("currentValue must be > 0");
+        if (currentValue <= 0) {
+            throw new IllegalArgumentException("must be > 0");
         }
         this.currentValue = currentValue;
     }
