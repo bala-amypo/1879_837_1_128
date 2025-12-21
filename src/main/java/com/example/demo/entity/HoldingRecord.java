@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "holding_records")
 public class HoldingRecord {
 
     @Id
@@ -18,49 +19,14 @@ public class HoldingRecord {
 
     private Double currentValue;
 
-    private LocalDateTime snapshotDate = LocalDateTime.now();
-
-
-    public HoldingRecord() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
-        this.assetClass = assetClass;
-    }
-
-    public Double getCurrentValue() {
-        return currentValue;
-    }
+    private LocalDateTime snapshotDate;
 
     public void setCurrentValue(Double currentValue) {
+        if (currentValue <= 0) {
+            throw new IllegalArgumentException("currentValue must be > 0");
+        }
         this.currentValue = currentValue;
     }
 
-    public LocalDateTime getSnapshotDate() {
-        return snapshotDate;
-    }
-
-    public void setSnapshotDate(LocalDateTime snapshotDate) {
-        this.snapshotDate = snapshotDate;
-    }
+    // getters and setters
 }

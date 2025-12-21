@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "rebalancing_alerts")
 public class RebalancingAlertRecord {
 
     @Id
@@ -26,82 +27,15 @@ public class RebalancingAlertRecord {
 
     private String message;
 
-    private LocalDateTime alertDate = LocalDateTime.now();
+    private LocalDateTime alertDate;
 
     private Boolean resolved = false;
 
-    public RebalancingAlertRecord() {
+    public void validate() {
+        if (currentPercentage <= targetPercentage) {
+            throw new IllegalArgumentException("currentPercentage > targetPercentage required");
+        }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
-        this.assetClass = assetClass;
-    }
-
-    public Double getCurrentPercentage() {
-        return currentPercentage;
-    }
-
-    public void setCurrentPercentage(Double currentPercentage) {
-        this.currentPercentage = currentPercentage;
-    }
-
-    public Double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    public void setTargetPercentage(Double targetPercentage) {
-        this.targetPercentage = targetPercentage;
-    }
-
-    public AlertSeverity getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(AlertSeverity severity) {
-        this.severity = severity;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDateTime getAlertDate() {
-        return alertDate;
-    }
-
-    public void setAlertDate(LocalDateTime alertDate) {
-        this.alertDate = alertDate;
-    }
-
-    public Boolean getResolved() {
-        return resolved;
-    }
-
-    public void setResolved(Boolean resolved) {
-        this.resolved = resolved;
-    }
+    // getters and setters
 }
