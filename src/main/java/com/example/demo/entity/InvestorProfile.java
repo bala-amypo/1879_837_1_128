@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "investor_profiles", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"investorId"}),
-    @UniqueConstraint(columnNames = {"email"})
+        @UniqueConstraint(columnNames = "investorId"),
+        @UniqueConstraint(columnNames = "email")
 })
 public class InvestorProfile {
 
@@ -14,19 +14,12 @@ public class InvestorProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String investorId;
-
-    @Column(nullable = false)
     private String fullName;
-
-    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
     private Boolean active = true;
 
-    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     // getters and setters
