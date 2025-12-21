@@ -28,14 +28,14 @@ public class InvestorProfileController {
     public ResponseEntity<InvestorProfile> createInvestor(
             @RequestBody InvestorProfile investor) {
 
-        return new ResponseEntity<>(
-                service.createInvestor(investor),
-                HttpStatus.CREATED
-        );
+        InvestorProfile saved = service.createInvestor(investor);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public InvestorProfile getInvestorById(@PathVariable Long id) {
+    public InvestorProfile getInvestorById(
+            @PathVariable Long id) {
+
         return service.getInvestorById(id);
     }
 
