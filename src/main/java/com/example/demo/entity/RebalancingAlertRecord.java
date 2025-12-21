@@ -2,16 +2,16 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
-import com.example.demo.entity.enums.AssetClassType;
-import com.example.demo.entity.enums.AlertSeverity;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import com.example.demo.entity.enums.AlertSeverity;
+import com.example.demo.entity.enums.AssetClassType;
 
 @Entity
 @Table(name = "rebalancing_alerts")
@@ -27,7 +27,6 @@ public class RebalancingAlertRecord {
     private AssetClassType assetClass;
 
     private Double currentPercentage;
-
     private Double targetPercentage;
 
     @Enumerated(EnumType.STRING)
@@ -35,20 +34,11 @@ public class RebalancingAlertRecord {
 
     private String message;
 
-    private LocalDateTime alertDate;
+    private LocalDateTime alertDate = LocalDateTime.now();
 
     private Boolean resolved = false;
 
-    // ---------- Validation ----------
-
-    public void validate() {
-        if (currentPercentage == null || targetPercentage == null ||
-            currentPercentage <= targetPercentage) {
-            throw new IllegalArgumentException("currentPercentage > targetPercentage");
-        }
-    }
-
-    // ---------- Getters ----------
+    // ---------- GETTERS ----------
 
     public Long getId() {
         return id;
@@ -86,7 +76,7 @@ public class RebalancingAlertRecord {
         return resolved;
     }
 
-    // ---------- Setters ----------
+    // ---------- SETTERS ----------
 
     public void setId(Long id) {
         this.id = id;
