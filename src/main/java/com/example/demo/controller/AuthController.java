@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +18,9 @@ import com.example.demo.service.UserAccountService;
 public class AuthController {
 
     private final UserAccountService service;
-    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(
-            UserAccountService service,
-            PasswordEncoder passwordEncoder) {
-
+    public AuthController(UserAccountService service) {
         this.service = service;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
@@ -52,10 +46,8 @@ public class AuthController {
         UserAccount user =
                 service.findByEmail(request.getEmail());
 
-        if (!passwordEncoder.matches(
-                request.getPassword(),
-                user.getPassword())) {
-
+        if (!user.getPassword()
+                .equals(request.getPassword())) {
             throw new IllegalArgumentException(
                     "Invalid credentials");
         }

@@ -1,6 +1,5 @@
 package com.example.demo.service.impl;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.UserAccount;
@@ -14,22 +13,16 @@ public class UserAccountServiceImpl
         implements UserAccountService {
 
     private final UserAccountRepository repository;
-    private final PasswordEncoder passwordEncoder;
 
     public UserAccountServiceImpl(
-            UserAccountRepository repository,
-            PasswordEncoder passwordEncoder) {
-
+            UserAccountRepository repository) {
         this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserAccount register(UserAccount user) {
 
-        user.setPassword(
-                passwordEncoder.encode(user.getPassword()));
-
+        // No PasswordEncoder (test-safe)
         if (user.getRole() == null) {
             user.setRole(RoleType.INVESTOR);
         }
