@@ -29,7 +29,6 @@ public class HoldingRecord {
 
     private LocalDateTime snapshotDate = LocalDateTime.now();
 
-    // ---------- GETTERS ----------
 
     public Long getId() {
         return id;
@@ -51,7 +50,6 @@ public class HoldingRecord {
         return snapshotDate;
     }
 
-    // ---------- SETTERS ----------
 
     public void setId(Long id) {
         this.id = id;

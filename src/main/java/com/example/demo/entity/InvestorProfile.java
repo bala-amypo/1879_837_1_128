@@ -29,7 +29,6 @@ public class InvestorProfile {
     private Boolean active = true;
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // ✅ REQUIRED: PUBLIC GETTERS & SETTERS
 
     public Long getId() {
         return id;

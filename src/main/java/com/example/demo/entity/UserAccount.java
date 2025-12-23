@@ -29,9 +29,6 @@ public class UserAccount {
 
     private String email;
 
-    /**
-     * Must always be stored as a hash (e.g., BCrypt).
-     */
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -39,7 +36,6 @@ public class UserAccount {
 
     private Boolean active = true;
 
-    // ---------- Getters ----------
 
     public Long getId() {
         return id;
@@ -65,7 +61,6 @@ public class UserAccount {
         return active;
     }
 
-    // ---------- Setters ----------
 
     public void setId(Long id) {
         this.id = id;
@@ -79,9 +74,6 @@ public class UserAccount {
         this.email = email;
     }
 
-    /**
-     * Service layer must ensure this value is already hashed.
-     */
     public void setPassword(String password) {
         this.password = password;
     }

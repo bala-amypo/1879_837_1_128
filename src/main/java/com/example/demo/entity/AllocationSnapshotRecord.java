@@ -26,7 +26,6 @@ public class AllocationSnapshotRecord {
     @Lob
     private String allocationJson;
 
-    // ---------- GETTERS ----------
 
     public Long getId() {
         return id;
@@ -48,7 +47,6 @@ public class AllocationSnapshotRecord {
         return allocationJson;
     }
 
-    // ---------- SETTERS ----------
 
     public void setId(Long id) {
         this.id = id;

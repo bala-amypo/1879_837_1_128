@@ -38,7 +38,6 @@ public class RebalancingAlertRecord {
 
     private Boolean resolved = false;
 
-    // ---------- GETTERS ----------
 
     public Long getId() {
         return id;
@@ -76,7 +75,6 @@ public class RebalancingAlertRecord {
         return resolved;
     }
 
-    // ---------- SETTERS ----------
 
     public void setId(Long id) {
         this.id = id;
