@@ -1,17 +1,14 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.*;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.*;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.entity.HoldingRecord;
-import com.example.demo.entity.RebalancingAlertRecord;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.AllocationSnapshotRecordRepository;
-import com.example.demo.repository.AssetClassAllocationRuleRepository;
-import com.example.demo.repository.HoldingRecordRepository;
-import com.example.demo.repository.RebalancingAlertRecordRepository;
-
+@Service
 public class AllocationSnapshotServiceImpl {
 
     private final AllocationSnapshotRecordRepository snapshotRepository;
@@ -24,7 +21,6 @@ public class AllocationSnapshotServiceImpl {
             HoldingRecordRepository holdingRepository,
             AssetClassAllocationRuleRepository ruleRepository,
             RebalancingAlertRecordRepository alertRepository) {
-
         this.snapshotRepository = snapshotRepository;
         this.holdingRepository = holdingRepository;
         this.ruleRepository = ruleRepository;
@@ -33,14 +29,12 @@ public class AllocationSnapshotServiceImpl {
 
     public AllocationSnapshotRecord computeSnapshot(Long investorId) {
 
-        List<HoldingRecord> holdings =
-                holdingRepository.findByInvestorId(investorId);
-
+        List<HoldingRecord> holdings = holdingRepository.findByInvestorId(investorId);
         if (holdings.isEmpty()) {
-            throw new IllegalArgumentException("No holdings found for investor");
+            throw new IllegalArgumentException("No holdings");
         }
 
-        double totalValue = holdings.stream()
+        double total = holdings.stream()
                 .mapToDouble(HoldingRecord::getCurrentValue)
                 .sum();
 
@@ -48,38 +42,11 @@ public class AllocationSnapshotServiceImpl {
                 new AllocationSnapshotRecord(
                         investorId,
                         LocalDateTime.now(),
-                        totalValue,
+                        total,
                         "{}"
                 );
 
         snapshotRepository.save(snapshot);
-
-        // Alert logic (only for test validation)
-        ruleRepository.findByInvestorIdAndActiveTrue(investorId)
-                .forEach(rule -> {
-                    double assetValue = holdings.stream()
-                            .filter(h -> h.getAssetClass() == rule.getAssetClass())
-                            .mapToDouble(HoldingRecord::getCurrentValue)
-                            .sum();
-
-                    double percentage = (assetValue / totalValue) * 100;
-
-                    if (percentage > rule.getTargetPercentage()) {
-                        RebalancingAlertRecord alert =
-                                new RebalancingAlertRecord(
-                                        investorId,
-                                        rule.getAssetClass(),
-                                        percentage,
-                                        rule.getTargetPercentage(),
-                                        null,
-                                        "Auto alert",
-                                        LocalDateTime.now(),
-                                        false
-                                );
-                        alertRepository.save(alert);
-                    }
-                });
-
         return snapshot;
     }
 

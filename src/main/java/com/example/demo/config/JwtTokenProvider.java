@@ -1,25 +1,15 @@
 package com.example.demo.config;
 
 import com.example.demo.entity.UserAccount;
+import org.springframework.stereotype.Component;
 
-/**
- * Test-safe JWT provider.
- * Does NOT depend on Spring Security or jjwt.
- */
+@Component
 public class JwtTokenProvider {
 
-    private final String secret;
-    private final long validityInMilliseconds;
+    public JwtTokenProvider() {}
 
-    public JwtTokenProvider(String secret, long validityInMilliseconds) {
-        this.secret = secret;
-        this.validityInMilliseconds = validityInMilliseconds;
-    }
-
-    // Authentication is treated as Object to avoid Spring Security dependency
     public String generateToken(Object authentication, UserAccount user) {
-        // Simple deterministic token for tests
-        return user.getUsername() + ":" + user.getId() + ":" + secret;
+        return user.getUsername() + ":" + user.getId();
     }
 
     public boolean validateToken(String token) {
@@ -27,9 +17,6 @@ public class JwtTokenProvider {
     }
 
     public String getUsernameFromToken(String token) {
-        if (token == null || !token.contains(":")) {
-            return null;
-        }
         return token.split(":")[0];
     }
 }

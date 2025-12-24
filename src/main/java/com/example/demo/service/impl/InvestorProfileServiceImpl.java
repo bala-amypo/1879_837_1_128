@@ -1,12 +1,14 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.InvestorProfileRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class InvestorProfileServiceImpl {
 
     private final InvestorProfileRepository repository;
