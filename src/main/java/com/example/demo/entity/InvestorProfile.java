@@ -1,13 +1,6 @@
 package com.example.demo.entity;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 
 @Entity
 @Table(
@@ -27,54 +20,24 @@ public class InvestorProfile {
     private String fullName;
     private String email;
     private Boolean active = true;
-    private LocalDateTime createdAt = LocalDateTime.now();
 
+    public InvestorProfile() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getInvestorId() {
-        return investorId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setInvestorId(String investorId) {
+    public InvestorProfile(String investorId, String fullName, String email, Boolean active) {
         this.investorId = investorId;
-    }
-
-    public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setActive(Boolean active) {
         this.active = active;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getInvestorId() { return investorId; }
+    public String getFullName() { return fullName; }
+    public String getEmail() { return email; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
