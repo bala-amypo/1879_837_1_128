@@ -1,20 +1,10 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.enums.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import com.example.demo.entity.enums.AlertSeverity;
-import com.example.demo.entity.enums.AssetClassType;
-
 @Entity
-@Table(name = "rebalancing_alerts")
 public class RebalancingAlertRecord {
 
     @Id
@@ -33,82 +23,27 @@ public class RebalancingAlertRecord {
     private AlertSeverity severity;
 
     private String message;
-
-    private LocalDateTime alertDate = LocalDateTime.now();
-
+    private LocalDateTime alertDate;
     private Boolean resolved = false;
 
+    public RebalancingAlertRecord() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public Double getCurrentPercentage() {
-        return currentPercentage;
-    }
-
-    public Double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    public AlertSeverity getSeverity() {
-        return severity;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public LocalDateTime getAlertDate() {
-        return alertDate;
-    }
-
-    public Boolean getResolved() {
-        return resolved;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setInvestorId(Long investorId) {
+    public RebalancingAlertRecord(Long investorId, AssetClassType assetClass,
+                                  Double currentPercentage, Double targetPercentage,
+                                  AlertSeverity severity, String message,
+                                  LocalDateTime alertDate, Boolean resolved) {
         this.investorId = investorId;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
         this.assetClass = assetClass;
-    }
-
-    public void setCurrentPercentage(Double currentPercentage) {
         this.currentPercentage = currentPercentage;
-    }
-
-    public void setTargetPercentage(Double targetPercentage) {
         this.targetPercentage = targetPercentage;
-    }
-
-    public void setSeverity(AlertSeverity severity) {
         this.severity = severity;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
-    }
-
-    public void setAlertDate(LocalDateTime alertDate) {
         this.alertDate = alertDate;
-    }
-
-    public void setResolved(Boolean resolved) {
         this.resolved = resolved;
     }
+
+    public void setId(Long id) { this.id = id; }
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
+    public Double getCurrentPercentage() { return currentPercentage; }
 }

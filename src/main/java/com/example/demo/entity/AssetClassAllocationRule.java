@@ -1,17 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import com.example.demo.entity.enums.AssetClassType;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "asset_class_allocation_rules")
 public class AssetClassAllocationRule {
 
     @Id
@@ -24,50 +16,24 @@ public class AssetClassAllocationRule {
     private AssetClassType assetClass;
 
     private Double targetPercentage;
+    private Boolean active;
 
-    private Boolean active = true;
+    public AssetClassAllocationRule() {}
 
-    // ---------- GETTERS ----------
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public Double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    // ---------- SETTERS ----------
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setInvestorId(Long investorId) {
+    public AssetClassAllocationRule(Long investorId, AssetClassType assetClass,
+                                    Double targetPercentage, Boolean active) {
+        if (targetPercentage < 0 || targetPercentage > 100) {
+            throw new IllegalArgumentException("between 0 and 100");
+        }
         this.investorId = investorId;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
         this.assetClass = assetClass;
-    }
-
-    public void setTargetPercentage(Double targetPercentage) {
         this.targetPercentage = targetPercentage;
-    }
-
-    public void setActive(Boolean active) {
         this.active = active;
     }
+
+    // getters & setters
+    public void setId(Long id) { this.id = id; }
+    public Long getInvestorId() { return investorId; }
+    public AssetClassType getAssetClass() { return assetClass; }
+    public Double getTargetPercentage() { return targetPercentage; }
 }
