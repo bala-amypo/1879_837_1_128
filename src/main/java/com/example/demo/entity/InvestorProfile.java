@@ -1,6 +1,11 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(
@@ -30,14 +35,13 @@ public class InvestorProfile {
         this.active = active;
     }
 
-    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getInvestorId() { return investorId; }
     public String getFullName() { return fullName; }
     public String getEmail() { return email; }
-
     public Boolean getActive() { return active; }
+
     public void setActive(Boolean active) { this.active = active; }
 }

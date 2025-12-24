@@ -11,50 +11,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.RebalancingAlertRecord;
-import com.example.demo.service.RebalancingAlertService;
+import com.example.demo.service.impl.RebalancingAlertServiceImpl;
 
 @RestController
-@RequestMapping("/api/alerts")
+@RequestMapping("/alerts")
 public class RebalancingAlertController {
 
-    private final RebalancingAlertService service;
+    private final RebalancingAlertServiceImpl service;
 
-    public RebalancingAlertController(
-            RebalancingAlertService service) {
+    public RebalancingAlertController(RebalancingAlertServiceImpl service) {
         this.service = service;
     }
 
     @PostMapping
-    public RebalancingAlertRecord createAlert(
-            @RequestBody RebalancingAlertRecord alert) {
-
+    public RebalancingAlertRecord create(@RequestBody RebalancingAlertRecord alert) {
         return service.createAlert(alert);
     }
 
     @PutMapping("/{id}/resolve")
-    public RebalancingAlertRecord resolveAlert(
-            @PathVariable Long id) {
-
+    public RebalancingAlertRecord resolve(@PathVariable Long id) {
         return service.resolveAlert(id);
     }
 
-    @GetMapping("/{id}")
-    public RebalancingAlertRecord getAlertById(
-            @PathVariable Long id) {
-
-        return service.getAlertById(id);
-    }
-
     @GetMapping("/investor/{investorId}")
-    public List<RebalancingAlertRecord>
-            getAlertsByInvestor(
-                    @PathVariable Long investorId) {
-
+    public List<RebalancingAlertRecord> getByInvestor(
+            @PathVariable Long investorId) {
         return service.getAlertsByInvestor(investorId);
-    }
-
-    @GetMapping
-    public List<RebalancingAlertRecord> getAllAlerts() {
-        return service.getAllAlerts();
     }
 }
