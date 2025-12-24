@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,47 +11,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.AssetClassAllocationRule;
-import com.example.demo.service.AllocationRuleService;
+import com.example.demo.service.impl.AllocationRuleServiceImpl;
 
 @RestController
-@RequestMapping("/api/allocation-rules")
+@RequestMapping("/allocation-rules")
 public class AllocationRuleController {
 
-    private final AllocationRuleService service;
+    private final AllocationRuleServiceImpl service;
 
-    public AllocationRuleController(AllocationRuleService service) {
+    public AllocationRuleController(AllocationRuleServiceImpl service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<AssetClassAllocationRule> createRule(
-            @RequestBody AssetClassAllocationRule rule) {
-
-        return new ResponseEntity<>(
-                service.createRule(rule),
-                HttpStatus.CREATED
-        );
+    public AssetClassAllocationRule create(@RequestBody AssetClassAllocationRule rule) {
+        return service.createRule(rule);
     }
 
     @PutMapping("/{id}")
-    public AssetClassAllocationRule updateRule(
+    public AssetClassAllocationRule update(
             @PathVariable Long id,
             @RequestBody AssetClassAllocationRule rule) {
-
         return service.updateRule(id, rule);
     }
 
-    @GetMapping("/{id}")
-    public AssetClassAllocationRule getRuleById(
-            @PathVariable Long id) {
-
-        return service.getRuleById(id);
-    }
-
     @GetMapping("/investor/{investorId}")
-    public List<AssetClassAllocationRule> getRulesByInvestor(
+    public List<AssetClassAllocationRule> getByInvestor(
             @PathVariable Long investorId) {
-
         return service.getRulesByInvestor(investorId);
     }
 }

@@ -9,43 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.service.AllocationSnapshotService;
+import com.example.demo.service.impl.AllocationSnapshotServiceImpl;
 
 @RestController
-@RequestMapping("/api/snapshots")
+@RequestMapping("/snapshots")
 public class AllocationSnapshotController {
 
-    private final AllocationSnapshotService service;
+    private final AllocationSnapshotServiceImpl service;
 
-    public AllocationSnapshotController(
-            AllocationSnapshotService service) {
+    public AllocationSnapshotController(AllocationSnapshotServiceImpl service) {
         this.service = service;
     }
 
-    @PostMapping("/compute/{investorId}")
-    public AllocationSnapshotRecord computeSnapshot(
-            @PathVariable Long investorId) {
-
+    @PostMapping("/{investorId}")
+    public AllocationSnapshotRecord compute(@PathVariable Long investorId) {
         return service.computeSnapshot(investorId);
     }
 
-    @GetMapping("/{id}")
-    public AllocationSnapshotRecord getSnapshotById(
-            @PathVariable Long id) {
-
-        return service.getSnapshotById(id);
-    }
-
-    @GetMapping("/investor/{investorId}")
-    public List<AllocationSnapshotRecord>
-            getSnapshotsByInvestor(
-                    @PathVariable Long investorId) {
-
-        return service.getSnapshotsByInvestor(investorId);
-    }
-
     @GetMapping
-    public List<AllocationSnapshotRecord> getAllSnapshots() {
+    public List<AllocationSnapshotRecord> getAll() {
         return service.getAllSnapshots();
     }
 }
