@@ -6,11 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtTokenProvider {
 
-    // 🔹 REQUIRED by tests
     public JwtTokenProvider() {
     }
 
-    // keep this if you want (won't break tests)
     public JwtTokenProvider(String secret, long validityInMilliseconds) {
     }
 
