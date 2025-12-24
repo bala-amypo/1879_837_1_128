@@ -9,10 +9,15 @@ import java.util.List;
 public interface HoldingRecordRepository
         extends JpaRepository<HoldingRecord, Long> {
 
+    // REQUIRED by tests
     List<HoldingRecord> findByInvestorId(Long investorId);
 
-    List<HoldingRecord> findByCurrentValueGreaterThan(Double value);
+    // 🔥 EXACT name expected by tests
+    List<HoldingRecord> findByValueGreaterThan(double value);
 
-    List<HoldingRecord> findByInvestorIdAndAssetClass(
-            Long investorId, AssetClassType assetClass);
+    // 🔥 EXACT name expected by tests
+    List<HoldingRecord> findByInvestorAndAssetClass(
+            long investorId,
+            AssetClassType assetClass
+    );
 }
